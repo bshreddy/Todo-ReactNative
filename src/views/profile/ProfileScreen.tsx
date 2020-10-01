@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View, Text, Image, StyleSheet
 } from 'react-native';
+import Constants from 'expo-constants';
 import { StackActions } from '@react-navigation/native';
 
 import { ProfileLeftHeader } from './ProfileHeader'
@@ -41,7 +42,7 @@ export class ProfileScreen extends React.Component<ProfileScreenProps, ProfileSc
           <TouchableOpacity
             onPress={() => this.props.navigation.dispatch(StackActions.push('authStack'))}
           >
-            <Text style={styles.signOutButton}>Sign In</Text>
+            <Text style={styles.signInButton}>Sign In</Text>
           </TouchableOpacity>
         </View >
         </View>
@@ -54,7 +55,7 @@ export class ProfileScreen extends React.Component<ProfileScreenProps, ProfileSc
     return (
       <View style={styles.mainView}>
         <View style={styles.profileView}>
-          <Image source={this.state.user.photoURL} defaultSource={defaultProfile} style={styles.userDP} />
+          <Image source={photoURL} style={styles.userDP} />
           <Text style={styles.userDisplayName}>{this.state.user.displayName}</Text>
           <Text style={styles.userEmail}>{this.state.user.email}</Text>
         </View >
@@ -97,8 +98,12 @@ const styles = StyleSheet.create({
     alignItems: "center", 
     marginBottom: 30,
   },
+  signInButton: {
+    fontSize: 17, 
+    color: Constants.manifest.extra.defaultColor.systemBlue,
+  },
   signOutButton: { 
     fontSize: 17, 
-    color: "#ff3b30",
-  }
+    color: Constants.manifest.extra.defaultColor.systemRed,
+  },
 })

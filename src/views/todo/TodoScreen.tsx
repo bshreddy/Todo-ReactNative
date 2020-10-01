@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View, FlatList, ActivityIndicator, RefreshControl, Text, Platform, StyleSheet
 } from 'react-native';
+import Constants from 'expo-constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -158,6 +159,7 @@ const styles = StyleSheet.create({
     width: 96,
     justifyContent: "center",
     alignItems: "center",
+    // TODO: change after adding dark mode
     backgroundColor: "#3a3a3c",
     borderRadius: 25,
   },
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#007aff',
+    backgroundColor: Constants.manifest.extra.defaultColor.systemBlue,
     justifyContent: "center",
     alignItems: "center"
   }

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View, Text, StyleSheet
 } from 'react-native';
-import { Todo } from '../../models/Todo';
+import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import moment from 'moment';
+
+import { Todo } from '../../models/Todo';
 
 type Props = {
   item: Todo,
@@ -23,17 +25,32 @@ export const TodoListItem = ({ item, onChecked, onPress, onLongPress }: Props) =
         style={styles.mainView}
       >
         <View style={[styles.subView, styles.priorityView]}>
-          <Text style={{ fontSize: 24, color: (item.done ? "#d1d1d6" : "#007aff") }}>{"!".repeat(item.priority)}</Text>
+          <Text style={{ 
+            fontSize: 24, 
+            color: (item.done ? 
+                Constants.manifest.extra.defaultColor.systemGray4 : 
+                Constants.manifest.extra.defaultColor.systemBlue)
+          }}>{"!".repeat(item.priority)}</Text>
         </View>
         <View style={[styles.subView, { flex: 1 }]}>
-          <Text style={{ fontSize: 17, color: (item.done ? "#d1d1d6" : "black") }}>{item.title}</Text>
-          <Text style={{ fontSize: 14, color: (item.done ? "#d1d1d6" : "black") }}>{timeString}</Text>
+          <Text style={{ 
+            fontSize: 17, 
+            color: (item.done ? Constants.manifest.extra.defaultColor.systemGray4 : "black") 
+          }}>{item.title}</Text>
+          <Text style={{ 
+            fontSize: 14, 
+            color: (item.done ? Constants.manifest.extra.defaultColor.systemGray4 : "black") 
+          }}>{timeString}</Text>
         </View>
         <View style={styles.subView}>
           <TouchableOpacity onPress={() => onChecked(!item.done)}>
             {(item.done) ?
-              <Ionicons name="ios-checkmark-circle" size={32} color="#d1d1d6" /> :
-              <Ionicons name="ios-radio-button-off" size={32} color="#007aff" />
+              <Ionicons name="ios-checkmark-circle" size={32} 
+                color={Constants.manifest.extra.defaultColor.systemGray4} 
+              /> :
+              <Ionicons name="ios-radio-button-off" size={32} 
+                color={Constants.manifest.extra.defaultColor.systemBlue}
+              />
             }
           </TouchableOpacity>
         </View>
@@ -51,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 15,
     paddingStart: 5,
-    borderBottomColor: "#f2f2f7",
+    borderBottomColor: Constants.manifest.extra.defaultColor.systemGray6,
     borderBottomWidth: 1
   },
   subView: {
