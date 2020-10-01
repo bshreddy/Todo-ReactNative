@@ -12,7 +12,7 @@ const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday",
 
 export const TodoLeftHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
   return (
-    <View style={[styles.headerView, {paddingStart: 30}]}>
+    <View style={[styles.headerView, {paddingStart: 50}]}>
       <Text style={{ fontSize: 38 }}>{String(date.getDate()).padStart(2, '0')}</Text>
       <View style={styles.monthYearView}>
         <Text style={styles.month}>{monthNames[date.getMonth()]}</Text>

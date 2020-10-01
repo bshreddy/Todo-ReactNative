@@ -26,7 +26,8 @@ export type MainTabScreenState = {
 }
 
 export type TodoStackParamList = {
-  todo: undefined
+  todoMaster: undefined,
+  todoDetail: undefined,
 }
 type TodoStackNavigationProp = CompositeNavigationProp<BottomTabNavigationProp<MainTabParamList, 'Todo'>, MainTabScreenNavigationProp>
 export type TodoStackProps = {
@@ -41,10 +42,10 @@ export type ProfileStackProps = {
   navigation: ProfileStackNavigationProp
 }
 
-export type TodoScreenProps = {
-  navigation: CompositeNavigationProp<StackNavigationProp<TodoStackParamList, 'todo'>, TodoStackNavigationProp>
+export type TodoMasterScreenProps = {
+  navigation: CompositeNavigationProp<StackNavigationProp<TodoStackParamList, 'todoMaster'>, TodoStackNavigationProp>
 }
-export type TodoScreenState = {
+export type TodoMasterScreenState = {
   isLoading: boolean,
   refreshing: boolean,
   data: Todo[],

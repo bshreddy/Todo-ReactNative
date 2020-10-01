@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, FlatList, ActivityIndicator, RefreshControl, Text, Platform, StyleSheet
+  View, FlatList, ActivityIndicator, RefreshControl, StyleSheet
 } from 'react-native';
 import Constants from 'expo-constants';
 import GestureRecognizer from 'react-native-swipe-gestures';
@@ -12,10 +12,10 @@ import { TodoListItem } from './TodoListItem';
 import { Todo } from '../../models/Todo';
 import { TodoLeftHeader, TodoRightHeader } from './TodoHeader'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { TodoScreenProps, TodoScreenState, User } from '../../types';
+import { TodoMasterScreenProps, TodoMasterScreenState, User } from '../../types';
 
-export class TodoScreen extends React.Component<TodoScreenProps, TodoScreenState> {
-  state: TodoScreenState = {
+export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, TodoMasterScreenState> {
+  state: TodoMasterScreenState = {
     isLoading: true,
     refreshing: false,
     data: [] as Todo[],
@@ -79,7 +79,7 @@ export class TodoScreen extends React.Component<TodoScreenProps, TodoScreenState
   }
 
   addTodo() {
-
+    this.props.navigation.navigate('todoDetail');
   }
 
   onTodoChecked(item: Todo, index: number, newValue: boolean) {
