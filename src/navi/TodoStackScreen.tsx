@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Text
-} from 'react-native';
-import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { TodoScreen } from '../views/todo/TodoScreen';
 import { TodoStackParamList, TodoStackProps } from '../types';
@@ -18,4 +15,4 @@ export const TodoStackScreen: React.FunctionComponent<TodoStackProps> = () => {
       />
     </TodoStack.Navigator>
   );
-}
+};

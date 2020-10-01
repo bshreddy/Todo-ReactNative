@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Text, StyleSheet
 } from 'react-native';
+import Constants from 'expo-constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { createStackNavigator, StackNavigationProp } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { AuthScreen } from '../views/auth/AuthScreen';
 import { AuthStackParamList, AuthStackProps } from '../types';
@@ -33,9 +34,9 @@ export const AuthStackScreen: React.FunctionComponent<AuthStackProps> = ({ navig
 
 const styles = StyleSheet.create({
   cancelButton: { 
-    color: "#007bff", 
+    color: Constants.manifest.extra.defaultColor.systemBlue, 
     fontSize: 17, 
     textTransform: "capitalize", 
     paddingRight: 20 
   }
-})
+});

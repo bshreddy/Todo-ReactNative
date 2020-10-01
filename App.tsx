@@ -1,11 +1,10 @@
 import React from 'react';
+import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { enableScreens } from 'react-native-screens';
 
-import 'expo-firestore-offline-persistence'
 import * as firebase from 'firebase';
-import Constants from 'expo-constants';
 
 import { MainTabScreen } from './src/navi/MainTabScreen';
 import { AuthStackScreen } from './src/navi/AuthStackScreen';
@@ -23,8 +22,6 @@ console.warn = (message: any) => {
     _console.warn(message);
   }
 };
-
-console.log(Constants.manifest.extra.apiKey)
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
