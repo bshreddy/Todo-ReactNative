@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "TodoReactApp",
+    "slug": "TodoReactApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.shbr.todo-expo",
+      "supportsTablet": true,
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.774280500355-a9f2jp0tigkc6v6nplu6j8d2m3p5rfjr"
+        }
+      },
+      "googleServicesFile": "./config/GoogleService-Info.plist"
+    },
+    "android": {
+      "package": "com.shbr.todo_expo",
+      "googleServicesFile": "./config/google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
