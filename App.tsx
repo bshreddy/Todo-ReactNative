@@ -7,14 +7,14 @@ import 'expo-firestore-offline-persistence'
 import * as firebase from 'firebase';
 import Constants from 'expo-constants';
 
-import { MainTabScreen } from './navi/MainTabScreen';
-import { AuthStackScreen } from './navi/AuthStackScreen';
+import { MainTabScreen } from './src/navi/MainTabScreen';
+import { AuthStackScreen } from './src/navi/AuthStackScreen';
 
 enableScreens();
 
 import { LogBox } from 'react-native';
 import _ from 'lodash';
-import { RootStackParamList } from './types';
+import { RootStackParamList } from './src/types';
 
 LogBox.ignoreLogs(['Setting a timer']);
 const _console = _.clone(console);
