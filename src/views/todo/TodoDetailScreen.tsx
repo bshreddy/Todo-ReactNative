@@ -8,13 +8,13 @@ import Constants from 'expo-constants';
 import moment from 'moment';
 
 import { TodoDetailHeaderLeft, TodoDetailHeaderRight } from './TodoDetailHeader';
+import { TodoDetailScreenProps, TodoDetailScreenState } from '../../types';
 import { Todo } from '../../models/Todo';
-import { update } from 'lodash';
 
-export class TodoDetailScreen extends React.Component {
+export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, TodoDetailScreenState> {
 
-  state = {
-    datePickerVisible: false, 
+  state: TodoDetailScreenState = {
+    datePickerVisible: false,
     datePickerDateMode: true,
     todoID: '',
     todoTitle: '',
@@ -26,17 +26,17 @@ export class TodoDetailScreen extends React.Component {
   componentDidMount() {
     const todo = (this.props.route.params.todo || new Todo('', ''))
     this.setState({
-      todoID: todo.id, 
-      todoTitle: todo.title, 
+      todoID: todo.id,
+      todoTitle: todo.title,
       todoPriority: todo.priority,
       todoDone: todo.done,
       todoDate: todo.date,
     })
 
     this.props.navigation.setOptions({
-      headerTitle: null,
-      headerLeft: () => <TodoDetailHeaderLeft onPress={ () => this.props.navigation.goBack() } />,
-      headerRight: () => <TodoDetailHeaderRight onPress={this.onSavePressed.bind(this)}/>,
+      headerTitle: '',
+      headerLeft: () => <TodoDetailHeaderLeft onPress={() => this.props.navigation.goBack()} />,
+      headerRight: () => <TodoDetailHeaderRight onPress={this.onSavePressed.bind(this)} />,
       headerStatusBarHeight: 0,
       headerStyle: {
         height: 60,
@@ -48,14 +48,14 @@ export class TodoDetailScreen extends React.Component {
     })
   }
 
-  datePickerUpdated(date) {
+  datePickerUpdated(date: Date) {
     this.setState({ datePickerVisible: false, todoDate: date })
   }
 
   onSavePressed() {
-    const todo = new Todo(this.state.todoID, this.state.todoTitle, this.state.todoDone, 
+    const todo = new Todo(this.state.todoID, this.state.todoTitle, this.state.todoDone,
       this.state.todoPriority, this.state.todoDate)
-    
+
     this.props.route.params.onSave(todo)
     this.props.navigation.goBack()
   }
@@ -91,51 +91,51 @@ export class TodoDetailScreen extends React.Component {
           />
         </View>
 
-        <View 
-          style={{ 
+        <View
+          style={{
             borderBottomColor: Constants.manifest.extra.defaultColor.systemGray4,
             borderBottomWidth: 1,
             padding: 20,
-            flexDirection: "row", 
+            flexDirection: "row",
             alignItems: "center",
           }}
         >
           <SegmentedControl
             values={['None', 'Low', 'Medium', 'High']}
             selectedIndex={this.state.todoPriority}
-            style={{ 
-              height: 40, 
+            style={{
+              height: 40,
               flex: 1
             }}
             onChange={(event) => {
-              this.setState({todoPriority: event.nativeEvent.selectedSegmentIndex});
+              this.setState({ todoPriority: event.nativeEvent.selectedSegmentIndex });
             }}
           />
         </View>
 
-        <View 
-          style={{ 
+        <View
+          style={{
             borderBottomColor: Constants.manifest.extra.defaultColor.systemGray4,
             borderBottomWidth: 1,
             padding: 5,
-            flexDirection: "row", 
+            flexDirection: "row",
             alignItems: "center",
           }}
         >
-          <TouchableOpacity 
-            style={{ flex: 1, padding: 15, }} 
+          <TouchableOpacity
+            style={{ flex: 1, padding: 15, }}
             onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: true })}
           >
             <Text style={{ fontSize: 17 }}>{moment(this.state.todoDate).format('ddd MMM D, yyyy')}</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={{ padding: 15, }}
             onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: false })}
           >
             <Text style={{ fontSize: 17 }}>{moment(this.state.todoDate).format('hh:mm A')}</Text>
           </TouchableOpacity>
         </View>
-        
+
         <DateTimePickerModal
           date={this.state.todoDate}
           isVisible={this.state.datePickerVisible}

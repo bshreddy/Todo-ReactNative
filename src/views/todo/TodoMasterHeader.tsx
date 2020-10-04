@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View, Text, StyleSheet
 } from 'react-native';
-import { TodoHeaderProps } from '../../types';
+import { TodoMasterHeaderProps } from '../../types';
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
   "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
@@ -10,7 +10,7 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday",
     "Thursday", "Friday", "Saturday"];
 
-export const TodoMasterLeftHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
+export const TodoMasterLeftHeader: React.FunctionComponent<TodoMasterHeaderProps> = ({ date }) => {
   return (
     <View style={[styles.headerView, {paddingStart: 50}]}>
       <Text style={{ fontSize: 38 }}>{String(date.getDate()).padStart(2, '0')}</Text>
@@ -22,7 +22,7 @@ export const TodoMasterLeftHeader: React.FunctionComponent<TodoHeaderProps> = ({
   );
 }
 
-export const TodoMasterRightHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
+export const TodoMasterRightHeader: React.FunctionComponent<TodoMasterHeaderProps> = ({ date }) => {
   return (
     <View style={[styles.headerView, {paddingEnd: 30,}]}>
       <Text style={styles.day}>{dayNames[date.getDay()]}</Text>

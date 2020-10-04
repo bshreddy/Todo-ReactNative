@@ -1,7 +1,7 @@
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { CompositeNavigationProp } from "@react-navigation/native";
+import { CompositeNavigationProp, RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { GoogleSignInType, GoogleUser } from "expo-google-sign-in";
+import { GoogleUser } from "expo-google-sign-in";
 import { Todo } from "./models/Todo";
 
 export type ID = string | undefined
@@ -27,7 +27,11 @@ export type MainTabScreenState = {
 
 export type TodoStackParamList = {
   todoMaster: undefined,
-  todoDetail: undefined,
+  todoDetail: {
+    todo: Todo | undefined,
+    isNew: boolean,
+    onSave: (todo: Todo) => void
+  },
 }
 type TodoStackNavigationProp = CompositeNavigationProp<BottomTabNavigationProp<MainTabParamList, 'Todo'>, MainTabScreenNavigationProp>
 export type TodoStackProps = {
@@ -47,19 +51,35 @@ export type TodoMasterScreenProps = {
 }
 export type TodoMasterScreenState = {
   isLoading: boolean,
+  shouldLoad: boolean,
   refreshing: boolean,
   data: Todo[],
   date: Date,
   user: User
 }
-export type TodoHeaderProps = {
+export type TodoMasterHeaderProps = {
   date: Date
 }
+
+export type TodoDetailScreenProps = {
+  navigation: CompositeNavigationProp<StackNavigationProp<TodoStackParamList, 'todoDetail'>, TodoStackNavigationProp>,
+  route: RouteProp<TodoStackParamList, 'todoDetail'>
+}
+export type TodoDetailScreenState = {
+  datePickerVisible: boolean,
+  datePickerDateMode: boolean,
+  todoID: string | undefined,
+  todoTitle: string,
+  todoPriority: number,
+  todoDone: boolean,
+  todoDate: Date,
+}
+export type TodoDetailHeaderProps = undefined
 
 export type ProfileScreenProps = {
   navigation: CompositeNavigationProp<StackNavigationProp<ProfileStackParamList, 'profile'>, ProfileStackNavigationProp>
 }
-export type ProfileScreenState = { 
+export type ProfileScreenState = {
   user: User
 }
 export type ProfileLeftHeaderProps = {
@@ -79,6 +99,6 @@ export type AuthScreenProps = {
 }
 export type AuthScreenState = {
   user: User
-  email: string, 
+  email: string,
   pwd: string
 }

@@ -17,6 +17,7 @@ import { TodoMasterScreenProps, TodoMasterScreenState, User } from '../../types'
 export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, TodoMasterScreenState> {
   state: TodoMasterScreenState = {
     isLoading: true,
+    shouldLoad: true,
     refreshing: false,
     data: [] as Todo[],
     date: new Date(),
@@ -29,7 +30,7 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
     firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this))
 
     this.props.navigation.setOptions({
-      headerTitle: null,
+      headerTitle: '',
       headerLeft: () => <TodoMasterLeftHeader date={this.state.date} />,
       headerRight: () => <TodoMasterRightHeader date={this.state.date} />,
       headerStyle: {
@@ -63,7 +64,7 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
         this.setState({ data: [] })
       })
       .finally(() => {
-        this.setState({ isLoading: false })
+        this.setState({ isLoading: false, shouldLoad: false })
       })
   }
 
@@ -75,7 +76,7 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
   updateDate(amt: number) {
     var newDate = this.state.date;
     newDate.setDate(newDate.getDate() + amt);
-    this.setState({ isLoading: true, date: newDate })
+    this.setState({ isLoading: true, shouldLoad: true, date: newDate })
   }
 
   onTodoChecked(item: Todo, index: number, newValue: boolean) {
@@ -107,18 +108,20 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
   }
 
   saveTodo(todo: Todo) {
+    this.setState({ isLoading: true })
     todo.save(this.state.user)
-    .finally(() => this.updateData())
+    .finally(() => this.setState({ shouldLoad: true }))
   }
 
   updateTodo(todo: Todo) {
+    this.setState({ isLoading: true })
     todo.update(this.state.user)
-    .finally(() => this.updateData())
+    .finally(() => this.setState({ shouldLoad: true }))
   }
 
   render() {
     if (this.state.isLoading) {
-      this.updateData()
+      if(this.state.shouldLoad) this.updateData()
 
       return (
         <View style={[styles.mainView, styles.activityViewContainer]}>
