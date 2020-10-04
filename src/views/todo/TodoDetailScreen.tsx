@@ -64,8 +64,9 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.mainView}>
+
+      <View style={styles.mainView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.subView}>
             <TextInput
               style={styles.todoTitleInput}
@@ -114,7 +115,7 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
 
           <View style={{ flex: 1 }} />
 
-          { !this.props.route.params.isNew &&
+          {!this.props.route.params.isNew &&
             <View>
               <TouchableOpacity
                 onPress={this.onDeletePressed.bind(this)}
@@ -124,8 +125,9 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
               </TouchableOpacity>
             </View>
           }
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </View>
+
     );
   }
 }

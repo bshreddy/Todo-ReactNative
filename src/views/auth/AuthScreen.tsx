@@ -64,52 +64,50 @@ export class AuthScreen extends React.Component<AuthScreenProps, AuthScreenState
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.mainView}>
-          <>
-            <Text style={styles.signIntText}>User Sign-In</Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={text => this.setState({ email: text })}
-              value={this.state.email}
-              placeholder="E-Mail"
-              textContentType="emailAddress"
-              autoCompleteType="email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-            <TextInput
-              style={styles.textInput}
-              onChangeText={text => this.setState({ pwd: text })}
-              value={this.state.pwd}
-              placeholder="Password"
-              secureTextEntry={true}
-              textContentType="password"
-              autoCompleteType="password"
-              autoCapitalize="none"
-            />
-            <TouchableOpacity
-              style={[styles.button, {
-                backgroundColor: (this.state.email.length == 0 || this.state.pwd.length == 0) ?
-                  Constants.manifest.extra.defaultColor.systemGray3 : Constants.manifest.extra.defaultColor.systemBlue
-              }]}
-              onPress={this.emailSignInAsync.bind(this)}
-              disabled={this.state.email.length == 0 || this.state.pwd.length == 0}
-            >
-              <Text style={[styles.buttonText, { color: "white" }]}>Sign-In with E-Mail</Text>
-            </TouchableOpacity>
+      <View style={styles.mainView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Text style={styles.signIntText}>User Sign-In</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => this.setState({ email: text })}
+            value={this.state.email}
+            placeholder="E-Mail"
+            textContentType="emailAddress"
+            autoCompleteType="email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => this.setState({ pwd: text })}
+            value={this.state.pwd}
+            placeholder="Password"
+            secureTextEntry={true}
+            textContentType="password"
+            autoCompleteType="password"
+            autoCapitalize="none"
+          />
+          <TouchableOpacity
+            style={[styles.button, {
+              backgroundColor: (this.state.email.length == 0 || this.state.pwd.length == 0) ?
+                Constants.manifest.extra.defaultColor.systemGray3 : Constants.manifest.extra.defaultColor.systemBlue
+            }]}
+            onPress={this.emailSignInAsync.bind(this)}
+            disabled={this.state.email.length == 0 || this.state.pwd.length == 0}
+          >
+            <Text style={[styles.buttonText, { color: "white" }]}>Sign-In with E-Mail</Text>
+          </TouchableOpacity>
 
-            <View style={styles.separator} />
+          <View style={styles.separator} />
 
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: 'white' }]}
-              onPress={this.googleSignInAsync.bind(this)}
-            >
-              <Text style={[styles.buttonText, { color: "black" }]}>Sign-In with Google</Text>
-            </TouchableOpacity>
-          </>
-        </View>
-      </TouchableWithoutFeedback>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: 'white' }]}
+            onPress={this.googleSignInAsync.bind(this)}
+          >
+            <Text style={[styles.buttonText, { color: "black" }]}>Sign-In with Google</Text>
+          </TouchableOpacity>
+        </TouchableWithoutFeedback>
+      </View>
     );
   }
 }
