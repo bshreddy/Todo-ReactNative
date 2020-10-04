@@ -93,7 +93,9 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
     this.props.navigation.navigate("todoDetail", { 
       todo: item, 
       isNew: false, 
-      onSave: this.updateTodo.bind(this) })
+      onSave: this.updateTodo.bind(this),
+      onDelete: this.deleteTodo.bind(this),
+    })
   }
 
   onTodoLongPressed(item: Todo, index: number) {
@@ -104,7 +106,9 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
     this.props.navigation.navigate("todoDetail", { 
       todo: undefined, 
       isNew: true, 
-      onSave: this.saveTodo.bind(this) })
+      onSave: this.saveTodo.bind(this),
+      onDelete: this.deleteTodo.bind(this),
+    })
   }
 
   saveTodo(todo: Todo) {
@@ -116,6 +120,12 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
   updateTodo(todo: Todo) {
     this.setState({ isLoading: true })
     todo.update(this.state.user)
+    .finally(() => this.setState({ shouldLoad: true }))
+  }
+
+  deleteTodo(todo: Todo) {
+    this.setState({ isLoading: true })
+    todo.delete(this.state.user)
     .finally(() => this.setState({ shouldLoad: true }))
   }
 

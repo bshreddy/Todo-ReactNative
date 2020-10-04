@@ -58,13 +58,25 @@ export class Todo {
       if(!user) reject()
 
       const db = firebase.firestore()
-      var doc = db.collection('users').doc(user?.uid).collection('todos').doc(this.id);
-      doc.update({
+      db.collection('users').doc(user?.uid).collection('todos').doc(this.id)
+      .update({
         title: this.title, 
         done: this.done, 
         priority: this.priority, 
         date: this.date
       })
+      .then(resolve)
+      .catch(reject);
+    })
+  }
+
+  delete(user: User) {
+    return new Promise<void>((resolve, reject) => {
+      if(!user) reject()
+
+      const db = firebase.firestore()
+      db.collection('users').doc(user?.uid).collection('todos').doc(this.id)
+      .delete()
       .then(resolve)
       .catch(reject);
     })

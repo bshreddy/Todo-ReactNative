@@ -60,6 +60,14 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
     this.props.navigation.goBack()
   }
 
+  onDeletePressed() {
+    const todo = new Todo(this.state.todoID, this.state.todoTitle, this.state.todoDone,
+      this.state.todoPriority, this.state.todoDate)
+
+    this.props.route.params.onDelete(todo)
+    this.props.navigation.goBack()
+  }
+
   render() {
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -109,6 +117,19 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
             onConfirm={this.datePickerUpdated.bind(this)}
             onCancel={() => this.setState({ datePickerVisible: false })}
           />
+
+          <View style={{ flex: 1 }} />
+
+          { !this.props.route.params.isNew &&
+            <View>
+              <TouchableOpacity
+                onPress={this.onDeletePressed.bind(this)}
+                style={styles.touchableOpacityCenter}
+              >
+                <Text style={styles.delete}>Delete Todo</Text>
+              </TouchableOpacity>
+            </View>
+          }
         </View>
       </TouchableWithoutFeedback>
     );
@@ -146,6 +167,16 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
   touchableOpacity: {
-    padding: 15
+    padding: 15,
+  },
+  touchableOpacityCenter: {
+    padding: 15,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  delete: {
+    color: Constants.manifest.extra.defaultColor.systemRed,
+    fontSize: 17,
+    textTransform: "capitalize",
   }
 })

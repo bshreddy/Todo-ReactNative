@@ -30,7 +30,8 @@ export type TodoStackParamList = {
   todoDetail: {
     todo: Todo | undefined,
     isNew: boolean,
-    onSave: (todo: Todo) => void
+    onSave: (todo: Todo) => void,
+    onDelete: (todo: Todo) => void,
   },
 }
 type TodoStackNavigationProp = CompositeNavigationProp<BottomTabNavigationProp<MainTabParamList, 'Todo'>, MainTabScreenNavigationProp>

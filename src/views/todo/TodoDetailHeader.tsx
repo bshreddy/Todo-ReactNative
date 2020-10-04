@@ -12,7 +12,7 @@ export const TodoDetailHeaderLeft: React.FunctionComponent<TodoDetailHeaderProps
   return (
     <View style={styles.mainView}>
       <TouchableOpacity
-        onPress={() => onPress()}
+        onPress={onPress}
         style={styles.touchableOpacity}
       >
         <Ionicons name="ios-close" size={36} color={Constants.manifest.extra.defaultColor.systemBlue} />
@@ -25,7 +25,7 @@ export const TodoDetailHeaderRight: React.FunctionComponent<TodoDetailHeaderProp
   return (
     <View style={styles.mainView}>
       <TouchableOpacity
-        onPress={() => onPress()}
+        onPress={onPress}
         style={styles.touchableOpacity}
       >
         <Text
