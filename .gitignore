@@ -12,7 +12,7 @@ config/
 apk/
 .env
 .extra
-app.config.ts
+app.config.ts-orig
 
 # macOS
 .DS_Store
