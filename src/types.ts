@@ -74,7 +74,9 @@ export type TodoDetailScreenState = {
   todoDone: boolean,
   todoDate: Date,
 }
-export type TodoDetailHeaderProps = undefined
+export type TodoDetailHeaderProps = {
+  onPress: () => void
+}
 
 export type ProfileScreenProps = {
   navigation: CompositeNavigationProp<StackNavigationProp<ProfileStackParamList, 'profile'>, ProfileStackNavigationProp>

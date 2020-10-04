@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity
+  View, Text, TextInput, TouchableOpacity, StyleSheet
 } from 'react-native';
 import SegmentedControl from '@react-native-community/segmented-control';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -62,51 +62,21 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          paddingTop: 10,
-          paddingBottom: 10,
-          justifyContent: "flex-start",
-          alignItems: "stretch",
-          backgroundColor: "white"
-        }}
-      >
-        <View
-          style={{
-            borderBottomColor: Constants.manifest.extra.defaultColor.systemGray4,
-            borderBottomWidth: 1,
-            padding: 5,
-          }}
-        >
+      <View style={styles.mainView}>
+        <View style={styles.subView}>
           <TextInput
-            style={{
-              fontSize: 20,
-              padding: 15,
-              borderColor: Constants.manifest.extra.defaultColor.systemGray5
-            }}
+            style={styles.todoTitleInput}
             onChangeText={text => this.setState({ todoTitle: text })}
             value={this.state.todoTitle}
             placeholder="Remind Me To..."
           />
         </View>
 
-        <View
-          style={{
-            borderBottomColor: Constants.manifest.extra.defaultColor.systemGray4,
-            borderBottomWidth: 1,
-            padding: 20,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
+        <View style={[styles.subView, styles.subViewCenter, { padding: 20, }]}>
           <SegmentedControl
             values={['None', 'Low', 'Medium', 'High']}
             selectedIndex={this.state.todoPriority}
-            style={{
-              height: 40,
-              flex: 1
-            }}
+            style={styles.segmentedControl}
             onChange={(event) => {
               this.setState({ todoPriority: event.nativeEvent.selectedSegmentIndex });
             }}
@@ -114,25 +84,19 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
         </View>
 
         <View
-          style={{
-            borderBottomColor: Constants.manifest.extra.defaultColor.systemGray4,
-            borderBottomWidth: 1,
-            padding: 5,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
+          style={[styles.subView, styles.subViewCenter]}
         >
           <TouchableOpacity
-            style={{ flex: 1, padding: 15, }}
+            style={[styles.touchableOpacity, { flex: 1 }]}
             onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: true })}
           >
-            <Text style={{ fontSize: 17 }}>{moment(this.state.todoDate).format('ddd MMM D, yyyy')}</Text>
+            <Text style={styles.text}>{moment(this.state.todoDate).format('ddd MMM D, yyyy')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ padding: 15, }}
+            style={styles.touchableOpacity}
             onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: false })}
           >
-            <Text style={{ fontSize: 17 }}>{moment(this.state.todoDate).format('hh:mm A')}</Text>
+            <Text style={styles.text}>{moment(this.state.todoDate).format('hh:mm A')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -148,3 +112,38 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
     );
   }
 }
+
+const styles = StyleSheet.create({
+  mainView: {
+    flex: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+    backgroundColor: "white"
+  },
+  subView: {
+    borderBottomColor: Constants.manifest.extra.defaultColor.systemGray4,
+    borderBottomWidth: 1,
+    padding: 5,
+  },
+  subViewCenter: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  todoTitleInput: {
+    fontSize: 20,
+    padding: 15,
+    borderColor: Constants.manifest.extra.defaultColor.systemGray5
+  },
+  segmentedControl: {
+    height: 40,
+    flex: 1
+  },
+  text: { 
+    fontSize: 17 
+  },
+  touchableOpacity: {
+    padding: 15
+  }
+})

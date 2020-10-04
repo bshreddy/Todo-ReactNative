@@ -15,7 +15,7 @@ import { LogBox } from 'react-native';
 import _ from 'lodash';
 import { RootStackParamList } from './src/types';
 
-LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(['Setting a timer', 'Non-serializable values were found in the navigation state']);
 const _console = _.clone(console);
 console.warn = (message: any) => {
   if (message.indexOf('Setting a timer') <= -1) {
