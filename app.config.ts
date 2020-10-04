@@ -1,9 +1,38 @@
-// rename this file to app.config.ts
-// Create a Firebase Project, add a web app in the project and config below
-
 export default {
   name: 'Todo',
   version: '1.0.0',
+  slug: "TodoReactApp",
+  orientation: "portrait",
+  icon: "./assets/icon.png",
+  splash: {
+    image: "./assets/splash.png",
+    resizeMode: "contain",
+    backgroundColor: "#ffffff"
+  },
+  updates: {
+    fallbackToCacheTimeout: 0
+  },
+  assetBundlePatterns: [
+    "**/*"
+  ],
+  userInterfaceStyle: "light",
+  ios: {
+    bundleIdentifier: "com.shbr.todo-expo",
+    supportsTablet: true,
+    config: {
+      googleSignIn: {
+        reservedClientId: "###RESERVED_CLIENT_ID###",
+      }
+    },
+    googleServicesFile: "./config/GoogleService-Info.plist"
+  },
+  android: {
+    package: "com.shbr.todo_expo",
+    googleServicesFile: "./config/google-services.json"
+  },
+  web: {
+    favicon: "./assets/favicon.png"
+  },
   extra: {
     apiKey: "###API_KEY###",
     authDomain: "###AUTH_DOMAIN###",
@@ -52,3 +81,4 @@ export default {
     }
   },
 };
+
