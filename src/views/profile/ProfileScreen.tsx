@@ -13,24 +13,24 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ProfileScreenProps, ProfileScreenState, User } from '../../types';
 
 export class ProfileScreen extends React.Component<ProfileScreenProps, ProfileScreenState> {
-  state: ProfileScreenState = { user: null }
+  state: ProfileScreenState = { user: null };
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this))
+    firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this));
 
     this.props.navigation.setOptions({
       headerTitle: null,
-      headerLeft: () => <ProfileLeftHeader title="Profile" />,
+      headerLeft: () => <ProfileLeftHeader title="Profile"/>,
       headerStyle: {
         height: 128,
         elevation: 0,
         shadowOpacity: 0,
       }
-    })
+    });
   }
 
   onAuthStateChanged(user: User) {
-    this.setState({ user })
+    this.setState({ user });
   }
 
   render() {
@@ -48,9 +48,9 @@ export class ProfileScreen extends React.Component<ProfileScreenProps, ProfileSc
         </View>
       );
 
-    var photoURL = defaultProfile
+    var photoURL = defaultProfile;
     if (this.state.user.photoURL != null)
-      photoURL = this.state.user.photoURL
+      photoURL = this.state.user.photoURL;
 
     return (
       <View style={styles.mainView}>
@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
     fontSize: 17, 
     color: Constants.manifest.extra.defaultColor.systemRed,
   },
-})
+});

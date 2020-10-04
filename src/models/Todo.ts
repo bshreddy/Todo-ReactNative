@@ -1,8 +1,7 @@
-import { GoogleUser } from 'expo-google-sign-in';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
-import { ID, User } from '../types'
+import { ID, User } from '../types';
 
 export class Todo {
   id: ID;
@@ -21,11 +20,10 @@ export class Todo {
 
   setDone(newValue: boolean, user: User): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      if(!this.id || !user) reject()
+      if(!this.id || !user) reject();
       
-      const db = firebase.firestore()
-      var doc = db.collection('users').doc(user?.uid).collection('todos').doc(this.id);
-      doc.update({done: newValue})
+      firebase.firestore().collection('users').doc(user?.uid).collection('todos').doc(this.id)
+      .update({done: newValue})
       .then(() => {
         this.done = newValue;
         resolve();
@@ -36,10 +34,9 @@ export class Todo {
 
   save(user: User): Promise<void>  {
     return new Promise<void>((resolve, reject) => {
-      if(!user) reject()
+      if(!user) reject();
       
-      const db = firebase.firestore()
-      db.collection('users').doc(user?.uid).collection('todos').add({
+      firebase.firestore().collection('users').doc(user?.uid).collection('todos').add({
         title: this.title, 
         done: this.done, 
         priority: this.priority, 
@@ -55,10 +52,9 @@ export class Todo {
 
   update(user: User): Promise<void>  {
     return new Promise<void>((resolve, reject) => {
-      if(!user) reject()
+      if(!user) reject();
 
-      const db = firebase.firestore()
-      db.collection('users').doc(user?.uid).collection('todos').doc(this.id)
+      firebase.firestore().collection('users').doc(user?.uid).collection('todos').doc(this.id)
       .update({
         title: this.title, 
         done: this.done, 
@@ -72,7 +68,7 @@ export class Todo {
 
   delete(user: User) {
     return new Promise<void>((resolve, reject) => {
-      if(!user) reject()
+      if(!user) reject();
 
       const db = firebase.firestore()
       db.collection('users').doc(user?.uid).collection('todos').doc(this.id)
@@ -84,22 +80,22 @@ export class Todo {
 
   static getTodos(date: Date, user?: User): Promise<Todo[]> {
     return new Promise<Todo[]>(async (resolve, reject) => {
-      if (!user) reject()
+      if (!user) reject();
 
       var startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       var endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1);
       
-      var db = firebase.firestore()
+      var db = firebase.firestore();
       var snapshot = await db.collection('users').doc(user?.uid).collection('todos')
         .where('date', '>=', startDate).where('date', '<', endDate)
-        .orderBy('date', 'asc').orderBy('priority', 'desc').get()
+        .orderBy('date', 'asc').orderBy('priority', 'desc').get();
       if(snapshot.empty) reject();
 
       var todos = [] as Todo[];
       snapshot.forEach(doc => {
-        var data = doc.data()
-        todos.push(new Todo(doc.id, data.title, data.done, data.priority, data.date.toDate()))
-      })
+        var data = doc.data();
+        todos.push(new Todo(doc.id, data.title, data.done, data.priority, data.date.toDate()));
+      });
 
       resolve(todos);
     });

@@ -17,7 +17,7 @@ export class AuthScreen extends React.Component<AuthScreenProps, AuthScreenState
   };
 
   componentDidMount() {
-    this.initAsync()
+    this.initAsync();
   }
 
   async initAsync() {
@@ -148,4 +148,4 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 40
   }
-})
+});

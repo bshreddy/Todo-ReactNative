@@ -21,51 +21,45 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
     todoPriority: 0,
     todoDone: false,
     todoDate: new Date(),
-  }
+  };
 
   componentDidMount() {
-    const todo = (this.props.route.params.todo || new Todo('', ''))
+    const todo = (this.props.route.params.todo || new Todo('', ''));
     this.setState({
       todoID: todo.id,
       todoTitle: todo.title,
       todoPriority: todo.priority,
       todoDone: todo.done,
-      todoDate: todo.date,
-    })
+      todoDate: todo.date
+    });
 
     this.props.navigation.setOptions({
       headerTitle: '',
       headerLeft: () => <TodoDetailHeaderLeft onPress={() => this.props.navigation.goBack()} />,
       headerRight: () => <TodoDetailHeaderRight onPress={this.onSavePressed.bind(this)} />,
       headerStatusBarHeight: 0,
-      headerStyle: {
-        height: 60,
-        elevation: 0,
-        shadowOpacity: 0,
-        borderBottomWidth: 1,
-        borderColor: Constants.manifest.extra.defaultColor.systemGray4
-      }
-    })
+      headerStyle: styles.headerStyle
+    });
   }
 
   datePickerUpdated(date: Date) {
-    this.setState({ datePickerVisible: false, todoDate: date })
+    this.setState({ datePickerVisible: false, todoDate: date });
   }
 
   onSavePressed() {
     const todo = new Todo(this.state.todoID, this.state.todoTitle, this.state.todoDone,
-      this.state.todoPriority, this.state.todoDate)
+      this.state.todoPriority, this.state.todoDate);
 
-    this.props.route.params.onSave(todo)
-    this.props.navigation.goBack()
+    this.props.route.params.onSave(todo);
+    this.props.navigation.goBack();
   }
 
   onDeletePressed() {
     const todo = new Todo(this.state.todoID, this.state.todoTitle, this.state.todoDone,
-      this.state.todoPriority, this.state.todoDate)
+      this.state.todoPriority, this.state.todoDate);
 
-    this.props.route.params.onDelete(todo)
-    this.props.navigation.goBack()
+    this.props.route.params.onDelete(todo);
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -137,6 +131,13 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
 }
 
 const styles = StyleSheet.create({
+  headerStyle: {
+    height: 60,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 1,
+    borderColor: Constants.manifest.extra.defaultColor.systemGray4
+  },
   mainView: {
     flex: 1,
     paddingTop: 10,
@@ -179,4 +180,4 @@ const styles = StyleSheet.create({
     fontSize: 17,
     textTransform: "capitalize",
   }
-})
+});

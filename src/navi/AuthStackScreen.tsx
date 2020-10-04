@@ -19,7 +19,7 @@ export const AuthStackScreen: React.FunctionComponent<AuthStackProps> = ({ navig
     })}>
       <AuthStack.Screen name="auth" component={AuthScreen} options={{
         title: "Login",
-        headerLeft: () => { return null },
+        headerLeft: () => null,
         headerRight: () => {
           return (
             <TouchableOpacity onPress={() => { navigation.goBack() }}>

@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
 
-import { TodoDetailHeaderProps } from '../../types'
+import { TodoDetailHeaderProps } from '../../types';
 
 export const TodoDetailHeaderLeft: React.FunctionComponent<TodoDetailHeaderProps> = ({ onPress }) => {
   return (
@@ -19,7 +19,7 @@ export const TodoDetailHeaderLeft: React.FunctionComponent<TodoDetailHeaderProps
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 export const TodoDetailHeaderRight: React.FunctionComponent<TodoDetailHeaderProps> = ({ onPress }) => {
   return (
@@ -37,7 +37,7 @@ export const TodoDetailHeaderRight: React.FunctionComponent<TodoDetailHeaderProp
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   mainView: {
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   }
-})
+});

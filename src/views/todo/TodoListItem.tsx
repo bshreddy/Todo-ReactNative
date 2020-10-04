@@ -7,17 +7,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import moment from 'moment';
 
-import { Todo } from '../../models/Todo';
+import { TodoListItemProps } from '../../types';
 
-type Props = {
-  item: Todo,
-  onChecked: (newValue: boolean) => void,
-  onPress: () => void,
-  onLongPress: () => void
-}
-
-export const TodoListItem = ({ item, onChecked, onPress, onLongPress }: Props) => {
-  const timeString = moment(item.date).format('hh:mm A')
+export const TodoListItem: React.FunctionComponent<TodoListItemProps> = ({ item, onChecked, onPress, onLongPress }) => {
+  const timeString = moment(item.date).format('hh:mm A');
 
   return (
     <View style={styles.mainView}>
@@ -89,4 +82,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 30,
   }
-})
+});

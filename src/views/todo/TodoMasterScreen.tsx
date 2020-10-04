@@ -22,34 +22,30 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
     data: [] as Todo[],
     date: new Date(),
     user: null
-  }
+  };
   _isMounted = false;
 
   componentDidMount() {
-    this._isMounted = true
-    firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this))
+    this._isMounted = true;
+    firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this));
 
     this.props.navigation.setOptions({
       headerTitle: '',
       headerLeft: () => <TodoMasterLeftHeader date={this.state.date} />,
       headerRight: () => <TodoMasterRightHeader date={this.state.date} />,
-      headerStyle: {
-        height: 128,
-        elevation: 0,
-        shadowOpacity: 0,
-      }
-    })
+      headerStyle: styles.headerStyle
+    });
   }
 
   componentDidUpdate() {
     this.props.navigation.setOptions({
       headerLeft: () => <TodoMasterLeftHeader date={this.state.date} />,
       headerRight: () => <TodoMasterRightHeader date={this.state.date} />,
-    })
+    });
   }
 
   componentWillUnmount() {
-    this._isMounted = false
+    this._isMounted = false;
   }
 
   updateData() {
@@ -58,80 +54,82 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
     Todo.getTodos(this.state.date, this.state.user)
       .then((todos) => {
         if (this._isMounted)
-          this.setState({ data: todos })
+          this.setState({ data: todos });
       })
       .catch(() => {
-        this.setState({ data: [] })
+        this.setState({ data: [] });
       })
       .finally(() => {
-        this.setState({ isLoading: false, shouldLoad: false })
-      })
+        this.setState({ isLoading: false, shouldLoad: false });
+      });
   }
 
   onAuthStateChanged(user: User) {
-    this.setState({ user, isLoading: true })
+    this.setState({ user, isLoading: true });
     if (!user || !this.state.isLoading) return;
   }
 
   updateDate(amt: number) {
     var newDate = this.state.date;
     newDate.setDate(newDate.getDate() + amt);
-    this.setState({ isLoading: true, shouldLoad: true, date: newDate })
+    this.setState({ isLoading: true, shouldLoad: true, date: newDate });
   }
 
   onTodoChecked(item: Todo, index: number, newValue: boolean) {
-    const newData = [...this.state.data]
-    const oldValue = newData[index].done
-    newData[index].done = newValue
-    this.setState({ data: newData })
+    const newData = [...this.state.data];
+    const oldValue = newData[index].done;
+    newData[index].done = newValue;
+    this.setState({ data: newData });
     this.state.data[index].setDone(newValue, this.state.user)
-      .catch(() => { newData[index].done = oldValue; this.setState({ data: newData }); })
+      .catch(() => {
+        newData[index].done = oldValue;
+        this.setState({ data: newData });
+      });
   }
 
   onTodoPressed(item: Todo, index: number) {
-    console.log({ press: item })
-    this.props.navigation.navigate("todoDetail", { 
-      todo: item, 
-      isNew: false, 
+    this.props.navigation.navigate("todoDetail", {
+      todo: item,
+      isNew: false,
       onSave: this.updateTodo.bind(this),
       onDelete: this.deleteTodo.bind(this),
-    })
+    });
   }
 
   onTodoLongPressed(item: Todo, index: number) {
-    console.log({ longPress: item })
+    // console.log({ longPress: item })
   }
 
   addTodo() {
-    this.props.navigation.navigate("todoDetail", { 
-      todo: undefined, 
-      isNew: true, 
+    this.props.navigation.navigate("todoDetail", {
+      todo: undefined,
+      isNew: true,
       onSave: this.saveTodo.bind(this),
       onDelete: this.deleteTodo.bind(this),
-    })
+    });
   }
 
   saveTodo(todo: Todo) {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true });
     todo.save(this.state.user)
-    .finally(() => this.setState({ shouldLoad: true }))
+      .finally(() => this.setState({ shouldLoad: true }));
   }
 
   updateTodo(todo: Todo) {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true });
     todo.update(this.state.user)
-    .finally(() => this.setState({ shouldLoad: true }))
+      .finally(() => this.setState({ shouldLoad: true }));
   }
 
   deleteTodo(todo: Todo) {
-    this.setState({ isLoading: true })
+    this.setState({ isLoading: true });
     todo.delete(this.state.user)
-    .finally(() => this.setState({ shouldLoad: true }))
+      .finally(() => this.setState({ shouldLoad: true }));
   }
 
   render() {
     if (this.state.isLoading) {
-      if(this.state.shouldLoad) this.updateData()
+      if (this.state.shouldLoad) this.updateData();
 
       return (
         <View style={[styles.mainView, styles.activityViewContainer]}>
@@ -176,6 +174,11 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
 }
 
 const styles = StyleSheet.create({
+  headerStyle: {
+    height: 128,
+    elevation: 0,
+    shadowOpacity: 0,
+  },
   mainView: {
     flex: 1,
     justifyContent: "center",
@@ -211,4 +214,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   }
-})
+});

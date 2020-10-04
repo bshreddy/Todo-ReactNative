@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View, Text, StyleSheet
 } from 'react-native';
+
 import { TodoMasterHeaderProps } from '../../types';
 
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -20,7 +21,7 @@ export const TodoMasterLeftHeader: React.FunctionComponent<TodoMasterHeaderProps
       </View>
     </View>
   );
-}
+};
 
 export const TodoMasterRightHeader: React.FunctionComponent<TodoMasterHeaderProps> = ({ date }) => {
   return (
@@ -28,7 +29,7 @@ export const TodoMasterRightHeader: React.FunctionComponent<TodoMasterHeaderProp
       <Text style={styles.day}>{dayNames[date.getDay()]}</Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   headerView: {
@@ -52,4 +53,4 @@ const styles = StyleSheet.create({
     fontSize: 17, 
     textTransform: "uppercase" 
   }
-})
+});

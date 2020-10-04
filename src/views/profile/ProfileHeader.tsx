@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   headerTitle: { 
     fontSize: 38 
   }
-})
+});
