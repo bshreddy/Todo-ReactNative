@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 
 import { TodoListItem } from './TodoListItem';
 import { Todo } from '../../models/Todo';
-import { TodoLeftHeader, TodoRightHeader } from './TodoHeader'
+import { TodoMasterLeftHeader, TodoMasterRightHeader } from './TodoMasterHeader'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TodoMasterScreenProps, TodoMasterScreenState, User } from '../../types';
 
@@ -30,8 +30,8 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
 
     this.props.navigation.setOptions({
       headerTitle: null,
-      headerLeft: () => <TodoLeftHeader date={this.state.date} />,
-      headerRight: () => <TodoRightHeader date={this.state.date} />,
+      headerLeft: () => <TodoMasterLeftHeader date={this.state.date} />,
+      headerRight: () => <TodoMasterRightHeader date={this.state.date} />,
       headerStyle: {
         height: 128,
         elevation: 0,
@@ -42,8 +42,8 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
 
   componentDidUpdate() {
     this.props.navigation.setOptions({
-      headerLeft: () => <TodoLeftHeader date={this.state.date} />,
-      headerRight: () => <TodoRightHeader date={this.state.date} />,
+      headerLeft: () => <TodoMasterLeftHeader date={this.state.date} />,
+      headerRight: () => <TodoMasterRightHeader date={this.state.date} />,
     })
   }
 
@@ -78,10 +78,6 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
     this.setState({ isLoading: true, date: newDate })
   }
 
-  addTodo() {
-    this.props.navigation.navigate('todoDetail');
-  }
-
   onTodoChecked(item: Todo, index: number, newValue: boolean) {
     const newData = [...this.state.data]
     const oldValue = newData[index].done
@@ -93,10 +89,31 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
 
   onTodoPressed(item: Todo, index: number) {
     console.log({ press: item })
+    this.props.navigation.navigate("todoDetail", { 
+      todo: item, 
+      isNew: false, 
+      onSave: this.updateTodo.bind(this) })
   }
 
   onTodoLongPressed(item: Todo, index: number) {
     console.log({ longPress: item })
+  }
+
+  addTodo() {
+    this.props.navigation.navigate("todoDetail", { 
+      todo: undefined, 
+      isNew: true, 
+      onSave: this.saveTodo.bind(this) })
+  }
+
+  saveTodo(todo: Todo) {
+    todo.save(this.state.user)
+    .finally(() => this.updateData())
+  }
+
+  updateTodo(todo: Todo) {
+    todo.update(this.state.user)
+    .finally(() => this.updateData())
   }
 
   render() {

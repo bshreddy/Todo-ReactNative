@@ -16,18 +16,57 @@ export class Todo {
     this.title = title;
     this.done = done;
     this.priority = priority;
-    this.date = date
+    this.date = date;
   }
 
   setDone(newValue: boolean, user: User): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       if(!this.id || !user) reject()
-
-      var db = firebase.firestore()
-      var doc = db.collection('users').doc(user?.uid).collection('todos').doc(this.id)
+      
+      const db = firebase.firestore()
+      var doc = db.collection('users').doc(user?.uid).collection('todos').doc(this.id);
       doc.update({done: newValue})
-      .then(() => {this.done = newValue, resolve()})
-      .catch(reject)
+      .then(() => {
+        this.done = newValue;
+        resolve();
+      })
+      .catch(reject);
+    })
+  }
+
+  save(user: User): Promise<void>  {
+    return new Promise<void>((resolve, reject) => {
+      if(!user) reject()
+      
+      const db = firebase.firestore()
+      db.collection('users').doc(user?.uid).collection('todos').add({
+        title: this.title, 
+        done: this.done, 
+        priority: this.priority, 
+        date: this.date
+      })
+      .then((doc) => {
+        this.id = doc.id;
+        resolve();
+      })
+      .catch(reject);
+    })
+  }
+
+  update(user: User): Promise<void>  {
+    return new Promise<void>((resolve, reject) => {
+      if(!user) reject()
+
+      const db = firebase.firestore()
+      var doc = db.collection('users').doc(user?.uid).collection('todos').doc(this.id);
+      doc.update({
+        title: this.title, 
+        done: this.done, 
+        priority: this.priority, 
+        date: this.date
+      })
+      .then(resolve)
+      .catch(reject);
     })
   }
 

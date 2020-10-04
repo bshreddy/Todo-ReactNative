@@ -10,7 +10,7 @@ const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday",
     "Thursday", "Friday", "Saturday"];
 
-export const TodoLeftHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
+export const TodoMasterLeftHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
   return (
     <View style={[styles.headerView, {paddingStart: 50}]}>
       <Text style={{ fontSize: 38 }}>{String(date.getDate()).padStart(2, '0')}</Text>
@@ -22,7 +22,7 @@ export const TodoLeftHeader: React.FunctionComponent<TodoHeaderProps> = ({ date 
   );
 }
 
-export const TodoRightHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
+export const TodoMasterRightHeader: React.FunctionComponent<TodoHeaderProps> = ({ date }) => {
   return (
     <View style={[styles.headerView, {paddingEnd: 30,}]}>
       <Text style={styles.day}>{dayNames[date.getDay()]}</Text>
@@ -32,7 +32,8 @@ export const TodoRightHeader: React.FunctionComponent<TodoHeaderProps> = ({ date
 
 const styles = StyleSheet.create({
   headerView: {
-    height: 40,
+    marginTop: 10,
+    marginBottom: 10,
     flex: 1,
     alignItems: "center", 
     flexDirection: "row"
