@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet
+  View, Text, TextInput, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Keyboard
 } from 'react-native';
 import SegmentedControl from '@react-native-community/segmented-control';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -62,53 +62,55 @@ export class TodoDetailScreen extends React.Component<TodoDetailScreenProps, Tod
 
   render() {
     return (
-      <View style={styles.mainView}>
-        <View style={styles.subView}>
-          <TextInput
-            style={styles.todoTitleInput}
-            onChangeText={text => this.setState({ todoTitle: text })}
-            value={this.state.todoTitle}
-            placeholder="Remind Me To..."
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.mainView}>
+          <View style={styles.subView}>
+            <TextInput
+              style={styles.todoTitleInput}
+              onChangeText={text => this.setState({ todoTitle: text })}
+              value={this.state.todoTitle}
+              placeholder="Remind Me To..."
+            />
+          </View>
+
+          <View style={[styles.subView, styles.subViewCenter, { padding: 20, }]}>
+            <SegmentedControl
+              values={['None', 'Low', 'Medium', 'High']}
+              selectedIndex={this.state.todoPriority}
+              style={styles.segmentedControl}
+              onChange={(event) => {
+                this.setState({ todoPriority: event.nativeEvent.selectedSegmentIndex });
+              }}
+            />
+          </View>
+
+          <View
+            style={[styles.subView, styles.subViewCenter]}
+          >
+            <TouchableOpacity
+              style={[styles.touchableOpacity, { flex: 1 }]}
+              onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: true })}
+            >
+              <Text style={styles.text}>{moment(this.state.todoDate).format('ddd MMM D, yyyy')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.touchableOpacity}
+              onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: false })}
+            >
+              <Text style={styles.text}>{moment(this.state.todoDate).format('hh:mm A')}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <DateTimePickerModal
+            date={this.state.todoDate}
+            isVisible={this.state.datePickerVisible}
+            headerTextIOS={`Pick a ${this.state.datePickerDateMode ? "date" : "time"}`}
+            mode={(this.state.datePickerDateMode ? "date" : "time")}
+            onConfirm={this.datePickerUpdated.bind(this)}
+            onCancel={() => this.setState({ datePickerVisible: false })}
           />
         </View>
-
-        <View style={[styles.subView, styles.subViewCenter, { padding: 20, }]}>
-          <SegmentedControl
-            values={['None', 'Low', 'Medium', 'High']}
-            selectedIndex={this.state.todoPriority}
-            style={styles.segmentedControl}
-            onChange={(event) => {
-              this.setState({ todoPriority: event.nativeEvent.selectedSegmentIndex });
-            }}
-          />
-        </View>
-
-        <View
-          style={[styles.subView, styles.subViewCenter]}
-        >
-          <TouchableOpacity
-            style={[styles.touchableOpacity, { flex: 1 }]}
-            onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: true })}
-          >
-            <Text style={styles.text}>{moment(this.state.todoDate).format('ddd MMM D, yyyy')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.touchableOpacity}
-            onPress={() => this.setState({ datePickerVisible: true, datePickerDateMode: false })}
-          >
-            <Text style={styles.text}>{moment(this.state.todoDate).format('hh:mm A')}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <DateTimePickerModal
-          date={this.state.todoDate}
-          isVisible={this.state.datePickerVisible}
-          headerTextIOS={`Pick a ${this.state.datePickerDateMode ? "date" : "time"}`}
-          mode={(this.state.datePickerDateMode ? "date" : "time")}
-          onConfirm={this.datePickerUpdated.bind(this)}
-          onCancel={() => this.setState({ datePickerVisible: false })}
-        />
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -140,8 +142,8 @@ const styles = StyleSheet.create({
     height: 40,
     flex: 1
   },
-  text: { 
-    fontSize: 17 
+  text: {
+    fontSize: 17
   },
   touchableOpacity: {
     padding: 15
