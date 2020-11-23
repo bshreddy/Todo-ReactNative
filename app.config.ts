@@ -21,7 +21,7 @@ export default {
     supportsTablet: true,
     config: {
       googleSignIn: {
-        reservedClientId: "###RESERVED_CLIENT_ID###",
+        reservedClientId: "774280500355-a9f2jp0tigkc6v6nplu6j8d2m3p5rfjr.apps.googleusercontent.com",
       }
     },
     googleServicesFile: "./config/GoogleService-Info.plist"
@@ -34,14 +34,14 @@ export default {
     favicon: "./assets/favicon.png"
   },
   extra: {
-    apiKey: "###API_KEY###",
-    authDomain: "###AUTH_DOMAIN###",
-    databaseURL: "###DATABASE_URL###",
-    projectId: "###PROJECT_ID###",
-    storageBucket: "###STORAGE_BUCKET###",
-    messagingSenderId: "###MESSAGING_SENDER_ID###",
-    appId: "###APP_ID###",
-    clientId: "###CLIENT_ID###",
+    apiKey: "AIzaSyB-jUZtSxJjZcd0CeAgsgKWIei1dM5Wh8g",
+    authDomain: "todo-fbf20.firebaseapp.com",
+    databaseURL: "https://todo-fbf20.firebaseio.com",
+    projectId: "todo-fbf20",
+    storageBucket: "todo-fbf20.appspot.com",
+    messagingSenderId: "774280500355",
+    appId: "1:774280500355:web:df60face333c4d3f2137b6",
+    clientId: "774280500355-a9f2jp0tigkc6v6nplu6j8d2m3p5rfjr.apps.googleusercontent.com",
     defaultColor: {
       systemBlue: 'rgba(0, 122, 255, 1)',
       systemGreen: 'rgba(52, 199, 89, 1)',

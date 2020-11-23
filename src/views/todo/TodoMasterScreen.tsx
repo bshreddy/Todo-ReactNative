@@ -65,7 +65,7 @@ export class TodoMasterScreen extends React.Component<TodoMasterScreenProps, Tod
   }
 
   onAuthStateChanged(user: User) {
-    this.setState({ user, isLoading: true });
+    this.setState({ user, isLoading: true, shouldLoad: true });
     if (!user || !this.state.isLoading) return;
   }
 
